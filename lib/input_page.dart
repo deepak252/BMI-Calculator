@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
+import 'constants.dart';
 
-// const activeCardColor=Color(0xff161B22);
-// const inactiveCardColor=Color(0xff070A10); 
+// const kActiveCardColor=Color(0xff161B22);
+// const kInactiveCardColor=Color(0xff070A10); 
 
-const bottomContainerHeight=70.0;
-const activeCardColor=Color(0xff070A10);
-const inactiveCardColor= Color(0xff161B22);  
-const bottomContainerColor=Color(0xFFEB1555 );
+
 
 enum Gender{
   male,female
@@ -23,10 +21,11 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   // ACTIVE means seleceted   and INACTIVE means deselected
-  // Color maleCardColor=inactiveCardColor;      
-  // Color femaleCardColor=inactiveCardColor;
+  // Color maleCardColor=kInactiveCardColor;      
+  // Color femaleCardColor=kInactiveCardColor;
 
   Gender selectedGender;
+  int height=180;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +35,7 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI Calculator'),
       ),      
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Row(
@@ -48,7 +48,7 @@ class _InputPageState extends State<InputPage> {
                         selectedGender==Gender.male ? selectedGender=null : selectedGender=Gender.male;
                       });
                     },
-                    colour:selectedGender==Gender.male ? activeCardColor : inactiveCardColor,
+                    colour:selectedGender==Gender.male ? kActiveCardColor : kInactiveCardColor,
                     cardChild: IconContent(label: "MALE",iconName: FontAwesomeIcons.mars,
                   ),
                 )),
@@ -60,32 +60,72 @@ class _InputPageState extends State<InputPage> {
                         selectedGender==Gender.female ? selectedGender=null : selectedGender=Gender.female;
                       });
                     },
-                    colour:selectedGender==Gender.female ? activeCardColor: inactiveCardColor,
+                    colour:selectedGender==Gender.female ? kActiveCardColor: kInactiveCardColor,
                     cardChild: IconContent(label: "FEMALE",iconName: FontAwesomeIcons.venus,
                   ),
                   )),
               ],
             ),
           ),
-          Expanded(child: ReusableCard(
-                  colour:activeCardColor,
-          )),
+          Expanded(
+            child: ReusableCard(
+              colour:kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: kLabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        '124',
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style:kLabelTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    min: 120.0,
+                    max: 180.0,
+                    activeColor: kBottomContainerColor,
+                    // activeColor: Color(0xffEB1555),
+                    // inactiveColor: Color(0xff8D8E98),
+                    onChanged: (double newValue){
+                      setState(() {
+                       height=newValue.round(); 
+                      });
+                    },
+
+                  )
+                ],
+              ),
+            )
+          ),
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(child: ReusableCard(
-                  colour:activeCardColor,
+                  colour:kActiveCardColor,
                 )),
                 Expanded(child: ReusableCard(
-                  colour:activeCardColor,
+                  colour:kActiveCardColor,
                 )),
               ],
             ),
           ),
           Container(
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             width: double.infinity,
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: EdgeInsets.only(top: 12),
           )
 
