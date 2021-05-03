@@ -41,31 +41,29 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap:(){
+                  child: ReusableCard(
+                    onPressed: (){
                       setState(() {
                         // selectedGender=Gender.male;
                         selectedGender==Gender.male ? selectedGender=null : selectedGender=Gender.male;
                       });
                     },
-                    child: ReusableCard(
                     colour:selectedGender==Gender.male ? activeCardColor : inactiveCardColor,
-                    cardChild: IconContent(label: "MALE",iconName: FontAwesomeIcons.mars,),
-                ),
-                  )),
+                    cardChild: IconContent(label: "MALE",iconName: FontAwesomeIcons.mars,
+                  ),
+                )),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: (){
+                  child: ReusableCard(
+                    onPressed: (){
                       setState(() {
-                        // selectedGender=Gender.female;
+                        // selectedGender=Gender.male;
                         selectedGender==Gender.female ? selectedGender=null : selectedGender=Gender.female;
                       });
                     },
-                    child: ReusableCard(
                     colour:selectedGender==Gender.female ? activeCardColor: inactiveCardColor,
-                    cardChild: IconContent(label: "FEMALE",iconName: FontAwesomeIcons.venus,),
+                    cardChild: IconContent(label: "FEMALE",iconName: FontAwesomeIcons.venus,
                   ),
-                )),
+                  )),
               ],
             ),
           ),
@@ -99,3 +97,9 @@ class _InputPageState extends State<InputPage> {
 }
 
 
+
+
+// setState(() {
+//                         // selectedGender=Gender.male;
+//                         selectedGender==Gender.male ? selectedGender=null : selectedGender=Gender.male;
+//                       });
